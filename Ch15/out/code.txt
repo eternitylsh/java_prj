@@ -13,11 +13,9 @@ public class Ex15_02 {
 		// 드디어 파일.
 		try {
 			System.out.printf("%s", args[0]);
-			String inpth = "..\\src\\fileIO\\";
-			String pth = "..\\";
 		
-			FileInputStream fis = new FileInputStream(inpth + args[0]);
-			FileOutputStream fos = new FileOutputStream(pth + args[1]);
+			FileInputStream fis = new FileInputStream(args[0]);
+			FileOutputStream fos = new FileOutputStream(args[1]);
 			
 			int data = 0;
 			
@@ -40,8 +38,6 @@ public class Ex15_02 {
 		}
 		
 //		try {
-//			String pth = "..\\";
-//			String fname = "code.txt";
 //			FileOutputStream fos = new FileOutputStream("./123.txt");
 //			BufferedOutputStream bos = new BufferedOutputStream(fos, 5);
 //			
