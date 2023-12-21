@@ -4,19 +4,18 @@ package net;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
-import java.util.logging.Logger;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Ex16_06 {
 	
 	// 여기서부턴 아파치 Log4j2를 쓴다.
 	// 라고 해도 콘솔에서 문제라서 추후 다시;;
-	// private static Logger logger = LogManager.getLogger("HTMLServer01");
-	private final static Logger LOG = Logger.getGlobal();
+	private final static Logger logger = LogManager.getLogger();
+	// private final static Logger LOG = Logger.getGlobal();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -28,7 +27,7 @@ public class Ex16_06 {
 		try {
 			
 			sSocket = new ServerSocket(7777);
-			LOG.info("I'm Ready Server01");
+			logger.info("I'm Ready Server01");
 			
 			socket = sSocket.accept();
 			
@@ -49,8 +48,8 @@ class Sender extends Thread {
 	DataOutputStream out;
 	String name;
 	
-	// private Logger logger = LogManager.getLogger("ServerSender");
-	private final static Logger LOG = Logger.getGlobal();
+	private final static Logger logger = LogManager.getLogger();
+	// private final static Logger LOG = Logger.getGlobal();
 	
 	Sender(Socket socket) {
 		this.socket = socket;
@@ -70,7 +69,7 @@ class Sender extends Thread {
 			try {
 				out.writeUTF(name + sc.nextLine());
 			} catch(Exception e) {
-				LOG.severe(e.getMessage());
+				logger.error(e.getMessage());
 			}
 		}
 	}
@@ -81,8 +80,8 @@ class Receiver extends Thread {
 	Socket socket;
 	DataInputStream in;
 	
-	// private Logger logger = LogManager.getLogger("ServerReceiver");
-	private final static Logger LOG = Logger.getGlobal();
+	private final static Logger logger = LogManager.getLogger();
+	// private final static Logger LOG = Logger.getGlobal();
 	
 	Receiver(Socket socket) {
 		this.socket = socket;
@@ -90,16 +89,16 @@ class Receiver extends Thread {
 		try {
 			in = new DataInputStream(socket.getInputStream());
 		} catch(Exception e) {
-			LOG.severe(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 	
 	public void run() {
 		while(null != in ) {
 			try {
-				LOG.info(in.readUTF());
+				logger.info(in.readUTF());
 			} catch( Exception e ) {
-				LOG.severe(e.getMessage());
+				logger.error(e.getMessage());
 			}
 		}
 	}

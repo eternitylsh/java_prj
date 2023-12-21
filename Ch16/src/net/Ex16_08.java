@@ -8,18 +8,18 @@ import java.net.Socket;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.logging.Logger;
 
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Ex16_08 {
 
 	HashMap clients;
 	
-	// private static Logger logger = LogManager.getLogger("HTMLServer01");
-	private final static Logger LOG = Logger.getGlobal();
+	private static Logger logger = LogManager.getLogger("HTMLServer01");
+	// private final static Logger LOG = Logger.getGlobal();
 	
+	@SuppressWarnings("unchecked")
 	Ex16_08() {
 		clients = new HashMap();
 		Collections.synchronizedMap(clients);
@@ -32,19 +32,19 @@ public class Ex16_08 {
 		try {
 			
 			ssocket = new ServerSocket(7777);
-			LOG.info("Start Server02!!");
+			logger.info("Start Server02!!");
 			
 			while( true ) {
 				socket = ssocket.accept();
 				String hname = ("[" + socket.getInetAddress() + " : " + socket.getPort() + "]");
-				LOG.info( hname + "from connected!" );
+				logger.info( hname + "from connected!" );
 				
 				ServerReceiver thread = new ServerReceiver(socket);
 				thread.start();
 			}
 			
 		} catch(Exception e) {
-			LOG.severe(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 	
@@ -58,7 +58,7 @@ public class Ex16_08 {
 				DataOutputStream out = (DataOutputStream) clients.get(it.next());
 				out.writeUTF(msg);
 			} catch (Exception e) {
-				LOG.severe(e.getMessage());
+				logger.error(e.getMessage());
 			}
 		}
 	}
@@ -82,7 +82,7 @@ public class Ex16_08 {
 				
 				
 			} catch (IOException ie) {
-				LOG.severe(ie.getMessage());
+				logger.error(ie.getMessage());
 			}
 		}
 		
@@ -95,18 +95,18 @@ public class Ex16_08 {
 				// who invited?
 				sendToAll("Mr. / Ms. " + name + " call invited.");
 				clients.put(name, out);
-				LOG.info("Now SeverClients Count : " + clients.size());
+				logger.info("Now SeverClients Count : " + clients.size());
 				
 				while(null != in) {
 					sendToAll(in.readUTF());
 				}
 				
 			} catch (IOException e) {
-				LOG.severe(e.getMessage());
+				logger.error(e.getMessage());
 			} finally {
 				sendToAll( "Mr. / Ms. " + name + " exit." );
 				clients.remove(name);
-				LOG.info("Now SeverClients Count : " + clients.size());
+				logger.info("Now SeverClients Count : " + clients.size());
 			}
 		}
 	}

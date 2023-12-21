@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Test_ch2</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>src/log4j2.xml</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/bin/log4j2.xml</locationURI>
+		</link>
+	</linkedResources>
+	<variableList>
+		<variable>
+			<name>LIB_LOC</name>
+			<value>file:/D:/LSH/workspace/java_prj/lib</value>
+		</variable>
+	</variableList>
+</projectDescription>
