@@ -17,7 +17,7 @@ public class Test5 {
 		try {
 			
 			FileOutputStream fos = new FileOutputStream("..\\out\\123.txt");
-			BufferedOutputStream bos = new BufferedOutputStream(fos, 3);
+			BufferedOutputStream bos = new BufferedOutputStream(fos, 5);
 			
 			for( int i = '1'; i <= '9'; i++ )
 				bos.write(i);
