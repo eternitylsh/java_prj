@@ -50,13 +50,13 @@ public class Ex16_08 {
 	
 	// broadcast (who invited...)
 	@SuppressWarnings("rawtypes")
-	void sendToAll(String msg) {
+	void sendToAll(String name) {
 		Iterator it = clients.keySet().iterator();
 		
 		while( it.hasNext() ) {
 			try {
 				DataOutputStream out = (DataOutputStream) clients.get(it.next());
-				out.writeUTF(msg);
+				out.writeUTF(name);
 			} catch (Exception e) {
 				logger.error(e.getMessage());
 			}
@@ -77,8 +77,8 @@ public class Ex16_08 {
 			this.socket = socket;
 			
 			try {
-				in = new DataInputStream(socket.getInputStream());
-				out = new DataOutputStream(socket.getOutputStream());
+				this.in = new DataInputStream(socket.getInputStream());
+				this.out = new DataOutputStream(socket.getOutputStream());
 				
 				
 			} catch (IOException ie) {
@@ -90,15 +90,15 @@ public class Ex16_08 {
 			String name = "";
 			
 			try {
-				name = in.readUTF();
+				name = this.in.readUTF();
 
 				// who invited?
 				sendToAll("Mr. / Ms. " + name + " call invited.");
-				clients.put(name, out);
+				clients.put(name, this.out);
 				logger.info("Now SeverClients Count : " + clients.size());
 				
-				while(null != in) {
-					sendToAll(in.readUTF());
+				while(null != this.in) {
+					sendToAll(this.in.readUTF());
 				}
 				
 			} catch (IOException e) {
